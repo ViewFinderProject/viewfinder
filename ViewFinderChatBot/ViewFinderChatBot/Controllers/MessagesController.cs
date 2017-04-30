@@ -7,6 +7,11 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
+using ViewFinderChatBot.Logic;
+using static ViewFinderChatBot.Logic.SimpleViewFinderBot;
+
 
 namespace ViewFinderChatBot
 {
@@ -21,13 +26,7 @@ namespace ViewFinderChatBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                // calculate something for us to return
-                int length = (activity.Text ?? string.Empty).Length;
-
-                // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
-                await connector.Conversations.ReplyToActivityAsync(reply);
+                await Conversation.SendAsync(activity, MakeRootDialog);
             }
             else
             {
@@ -46,9 +45,7 @@ namespace ViewFinderChatBot
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
-                // Handle conversation state changes, like members being added and removed
-                // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
-                // Not available in all channels
+                //Activity reply = message.CreateReply($"Hello! I'm ViewFinder ChatBot, I can help you searchin satelite photos from the NASA Services");
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {
@@ -65,5 +62,10 @@ namespace ViewFinderChatBot
 
             return null;
         }
+        internal static IDialog<ViewFinderOrder> MakeRootDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(ViewFinderOrder.BuildForm));
+        }
+
     }
 }
