@@ -129,7 +129,7 @@ namespace APIforEOSDIS
 
         public override string ToString()
         {
-            return X_ll.ToString() + "," + Y_ll + "," + Y_ru + "," + X_ru;
+            return X_ll.ToString() + "," + Y_ll.ToString() + "," + Y_ru.ToString() + "," + X_ru.ToString();
         }
     }
 }

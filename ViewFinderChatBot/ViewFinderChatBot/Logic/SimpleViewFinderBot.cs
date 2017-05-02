@@ -38,9 +38,9 @@ namespace ViewFinderChatBot.Logic
                     IMessageActivity reply = context.MakeMessage();
                     switch (state.Country)
                     {
-                        case CountriesOptions.Ukraine: rect = new RectArea(18.549583190694918, 42.05502663141595, 53.26987038141595, 42.56130194069492); break;
-                        case CountriesOptions.USA: rect = new RectArea(-146.612249529861, 9.360138033414074, 50.765206221414076, -57.961272813861015); break;
-                        case CountriesOptions.Germany: rect = new RectArea(-1.0942022813609764, 44.940590437914, 55.291857484914004, 21.068541897639022); break;
+                        case CountriesOptions.Ukraine: rect = new RectArea(18, 42, 53, 42); break;
+                        case CountriesOptions.USA: rect = new RectArea(-146, 9, 50, -57); break;
+                        case CountriesOptions.Germany: rect = new RectArea(1, 44, 55, 21); break;
                     }
                    
                     switch (state.Category)
